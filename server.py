@@ -11,6 +11,7 @@ db = client["forza_macro_db"]
 users_collection = db["users"]
 
 @app.get("/")
+@app.head("/")
 def read_root():
     return {"status": "online"}
 
