@@ -5,10 +5,7 @@ import os
 
 app = FastAPI(title="Forza Macro Auth Server")
 
-
 MONGO_URI = os.getenv("MONGO_URI")
-client = MongoClient(MONGO_URI)
-
 client = MongoClient(MONGO_URI)
 db = client["forza_macro_db"]
 users_collection = db["users"]
@@ -19,7 +16,6 @@ class LoginRequest(BaseModel):
 
 @app.post("/api/login")
 def login_user(data: LoginRequest):
-   
     user = users_collection.find_one({"key": data.key})
     
     if not user:
@@ -28,7 +24,6 @@ def login_user(data: LoginRequest):
             detail="Invalid license key."
         )
     
-   
     current_hwid = user.get("hwid")
     if not current_hwid:
         users_collection.update_one(
