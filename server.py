@@ -10,6 +10,10 @@ client = MongoClient(MONGO_URI)
 db = client["forza_macro_db"]
 users_collection = db["users"]
 
+@app.get("/")
+def read_root():
+    return {"status": "online"}
+
 class LoginRequest(BaseModel):
     key: str
     hwid: str
